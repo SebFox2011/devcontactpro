@@ -5,7 +5,13 @@ var createError = require('http-errors');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  User.find(function (err, users) {
+    if(err){
+      return next(err);
+    }
+    res.render('users/list',{users:users})
+    console.log(users);
+  });
 });
 
 router.get('/new',(req,res) => {

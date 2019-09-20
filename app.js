@@ -30,10 +30,12 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 mongoose.connect('mongodb://localhost/' + process.env.DB_NAME, {
   useNewUrlParser: true,
-  useUnifiedTopology:true
+  useUnifiedTopology:true,
+  useCreateIndex:true,
+  useFindAndModify: false
 });
 app.locals.db = mongoose.connection; // enregistrer la connexion dans une variable globale
-app.listen()
+app.listen();
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
