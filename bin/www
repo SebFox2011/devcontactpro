@@ -16,11 +16,13 @@ var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Create HTTP server. + Socket.IO
  */
 
 var server = http.createServer(app);
-
+// Partie pour gérer les sockets
+const io = require('socket.io')(server);
+io.on('connection', socket => { console.log('Nouvelle connexion') }); // detecte la connexion
 
 app.locals.db.once('open', () =>{
   server.listen(port);

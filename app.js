@@ -24,6 +24,9 @@ passport.deserializeUser(User.deserializeUser());
 // Routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+// socket io
+const messageRouter = require ('./routes/messages');
+
 
 var app = express();
 
@@ -62,6 +65,8 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+// socket io
+app.use('/messages',messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

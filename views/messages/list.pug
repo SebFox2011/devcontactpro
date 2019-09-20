@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+    if messages
+        ul
+            each message in messages
+                li=message.content
+    else
+        p pas de messages
