@@ -5,7 +5,7 @@
 
 const mongoose = require('mongoose');
 
-const user = new mongoose.Schema ({
+const userSchema = new mongoose.Schema ({
     firstname: String,
     lastname: String,
     mail: String,
@@ -15,7 +15,7 @@ const user = new mongoose.Schema ({
     info: String
 });
 
-userSchema.virtual('fullname').get(() => this.firstname + ' ' + this.lastname);
+userSchema.virtual('fullname').get(function () { this.firstname + ' ' + this.lastname});
 
 userSchema.post('save',user => { // userSchema.pre existe aussi
     //console.log('Nouvel utilisateur: ' + user.firstname +' ' + user.lastname );
