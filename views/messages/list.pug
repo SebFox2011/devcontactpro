@@ -7,3 +7,7 @@ block content
                 li=message.content
     else
         p pas de messages
+
+    form#new-message(action='messages' method='POST')
+        textarea(name='content' placeholder='Mon message')
+        input(type='submit')

@@ -1,13 +1,24 @@
 var express = require('express');
 var router = express.Router();
-const message=require ('../models/message');
+const Message=require ('../models/Message');
 
 //Afficher l'ensemble des messages
 router.get('/',function (req,res,next) {
-    message.find((err,messages) => {
+    Message.find((err,messages) => {
         res.render('messages/list',{messages:messages});
     });
 
+});
+
+router.post('/',(req,res,next) => {
+    const message = new Message(req.body); // création d'un message avec les données du message envoyé
+    message.save((err,message) => {
+        if(err){
+            return next(err);
+        }
+        req.app.locals.socket.broadcast.emit('new-message',message);
+        res.json(message);
+    });
 });
 
 module.exports = router;

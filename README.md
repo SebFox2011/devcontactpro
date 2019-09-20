@@ -56,5 +56,10 @@ install server
 npm install socket.io
 
 install front
-nouveau fichier script message.js
+nouveau fichier script Message.js
+récupérer le fichier https://raw.githubusercontent.com/socketio/socket.io-client/master/dist/socket.io.js
+et le coller dans public, javascipt socketio.io.js
+il sert a la connexion au server via le systeme socket
+
+
 
