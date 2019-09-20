@@ -16,3 +16,7 @@ npm install dotenv
 creer un fichier .env
 
 et indiquer le numéro du port utilisé dans le fihier
+
+##3 installer nodemon
+Afin de recharger le server après chaque modif
+npm install nodemon --save-dev
