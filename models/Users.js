@@ -6,9 +6,12 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema ({
-    firstname: String,
-    lastname: String,
-    mail: String,
+    firstname: {type:String,required:true},
+    lastname: {type:String,required:true},
+    mail: {type:String,required:true,unique:true, validate:[
+            email => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
+            'Email non valide !'
+        ]},
     phone: String,
     linkedin: String,
     avatar: String,
