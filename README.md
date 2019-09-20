@@ -36,3 +36,13 @@ https://www.npmjs.com/package/mongoose
 npm install mongoose
 
 Créer le schéma de la base
+
+##5 Authentification
+http://www.passportjs.org/packages/
+https://medium.com/quick-code/handling-authentication-and-authorization-with-node-7f9548fedde8
+https://github.com/saintedlama/passport-local-mongoose
+
+npm install --save passport passport-local passport-local-mongoose
+
+npm install express-session
+renseigner : app.use(cookieParser('azerty')); et app.use (session({}));

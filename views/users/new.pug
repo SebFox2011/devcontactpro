@@ -3,6 +3,10 @@ extends ../layout
 
 block content
     form(action='/users' method='POST')
+        .form-control
+            input(type='text' name='username' placeholder='username' required)
+            input(type='password' name='password' placeholder='password' required)
+        hr
         input(type='text' name='firstname' placeholder='Prénom' required)
         input(type='text' name='lastname' placeholder='Nom' required)
         input(type='email' name='mail' placeholder='mail' required)

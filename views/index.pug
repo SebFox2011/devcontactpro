@@ -3,3 +3,11 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  if user
+    p Bonjour #{user.fullname}
+    a(href='users/logout') Déconnexion
+  else
+    form(action='/users/login' method='POST')
+      input(type='text' name='username' placeholder='username' required)
+      input(type='password' name='password' placeholder='password' required)
+      input(type='submit')

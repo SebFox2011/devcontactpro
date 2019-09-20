@@ -4,9 +4,24 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
-const mongoose = require('mongoose');
-require('dotenv').config()
+const session = require('express-session');
 
+// Gestion du module mongoose
+const mongoose = require('mongoose');
+
+//Gestion du fichier .env
+require('dotenv').config();
+
+//Authentification
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
+const User = require('./models/Users.js');
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -19,7 +34,12 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); //
-app.use(cookieParser());
+app.use(cookieParser('azerty'));
+app.use (session({
+  secret:'azerty',
+  resave:false,
+  saveUninitialized:true
+}));
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
@@ -36,6 +56,9 @@ mongoose.connect('mongodb://localhost/' + process.env.DB_NAME, {
 });
 app.locals.db = mongoose.connection; // enregistrer la connexion dans une variable globale
 app.listen();
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

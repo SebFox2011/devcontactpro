@@ -5,7 +5,12 @@
 
 const mongoose = require('mongoose');
 
+//passport
+const passportLocalMongoose = require('passport-local-mongoose');
+
 const userSchema = new mongoose.Schema ({
+    username:{ type:String,required:true, unique:true}, // pour passport
+    password: {type:String},//
     firstname: {type:String,required:true},
     lastname: {type:String,required:true},
     mail: {type:String,required:true,unique:true, validate:[
@@ -19,6 +24,9 @@ const userSchema = new mongoose.Schema ({
     createdAt: Date
 });
 
+// associe le userSchema à Passport
+userSchema.plugin(passportLocalMongoose);
+// cree une variable virtuelle avec le firstname et le fullname
 userSchema.virtual('fullname').get(function () { return this.firstname + ' ' + this.lastname});
 
 userSchema.pre('save',function(){
