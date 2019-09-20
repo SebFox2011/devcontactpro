@@ -29,3 +29,10 @@ app.use(sassMiddleware({
   indentedSyntax: false, // true = .sass and false = .scss
   sourceMap: true
 }));
+
+##4 Installation de Mangoose
+
+https://www.npmjs.com/package/mongoose
+npm install mongoose
+
+Créer le schéma de la base

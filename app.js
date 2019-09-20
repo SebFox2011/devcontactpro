@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
+const mongoose = require('mongoose');
 require('dotenv').config()
 
 var indexRouter = require('./routes/index');
@@ -25,7 +26,14 @@ app.use(sassMiddleware({
   indentedSyntax: false, // true = .sass and false = .scss
   sourceMap: true
 }));
+
 app.use(express.static(path.join(__dirname, 'public')));
+mongoose.connect('mongodb://localhost/' + process.env.DB_NAME, {
+  useNewUrlParser: true,
+  useUnifiedTopology:true
+});
+app.locals.db = mongoose.connection; // enregistrer la connexion dans une variable globale
+app.listen()
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
