@@ -58,6 +58,19 @@ mongoose.connect('mongodb://localhost/' + process.env.DB_NAME, {
   useFindAndModify: false
 });
 app.locals.db = mongoose.connection; // enregistrer la connexion dans une variable globale
+
+// Si l'utilisateur est connecté on passe au middle ware suivant sinon erreur 401
+const secureRoute = (req,res,next) => req.isAuthenticated() ? next () : res.sendStatus(401);
+/* // equivalent à :
+function secureRout (req,res,next){
+  if (req.isAuthenticated()){
+    return next();
+  }
+  else{
+    res.sendStatus(401)
+  }
+}*/
+
 app.listen();
 
 app.use(passport.initialize());
@@ -66,7 +79,7 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 // socket io
-app.use('/messages',messageRouter);
+app.use('/messages',secureRoute,messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

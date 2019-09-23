@@ -55,6 +55,12 @@ npm install passport passport-local passport-jwt
 install server
 npm install socket.io
 
+
+## 8 securisation de la router
+https://stackoverflow.com/questions/21884619/passport-js-local-strategy-how-to-secure-route
+dans app.js créer la fonction pour sécuriser /messages
+
+
 install front
 nouveau fichier script Message.js
 récupérer le fichier https://raw.githubusercontent.com/socketio/socket.io-client/master/dist/socket.io.js
