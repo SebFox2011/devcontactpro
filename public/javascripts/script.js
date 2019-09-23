@@ -13,10 +13,16 @@ formNewMessage.addEventListener('submit',function (event) {
 
     var form = event.target;
     var formData = new FormData(form);
-    var url = form.action;
+    var url = form.action; // permet de récupérer /message
 // appele le server en /message post
     fetch(url,{
         method:"POST",
-        body:formData
+        headers:{
+          'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(Object.fromEntries(formData))
     })
+        .then(response=>response.json())
+        .then(message=> socket.emit('new-message',message));
 });

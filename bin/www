@@ -24,8 +24,9 @@ var server = http.createServer(app);
 const io = require('socket.io')(server);
 
 io.on('connection', socket => {
-  console.log('Nouvelle connexion')
-  app.locals.socket = socket; // rendue de manière globale a tous les fichiers
+  console.log('Nouvelle connexion:' + socket.id);
+  // Lorsque le server recroit un nouveau message, il le diffuse aux autres
+  socket.on('new-message',message=> socket.broadcast.emit('new-message',message));
 }); // detecte la connexion
 
 app.locals.db.once('open', () =>{
@@ -54,7 +55,6 @@ function normalizePort(val) {
     // port number
     return port;
   }
-
   return false;
 }
 

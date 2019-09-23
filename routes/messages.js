@@ -16,7 +16,6 @@ router.post('/',(req,res,next) => {
         if(err){
             return next(err);
         }
-        req.app.locals.socket.broadcast.emit('new-message',message);
         res.json(message);
     });
 });
