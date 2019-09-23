@@ -1,8 +1,12 @@
-var socket = io('http://localhost:8000');
+var socket = io('http://location.hostname:8000');
 socket.on('connect',function () {
     console.log('Connected');
     socket.on('new-message',function (message) { // lorsque le message arrive
         addMessage(message); // on l'affiche
+    });
+    socket.on('square-move',function (position) { // lorsque le message arrive
+        square.style.marginLeft = position.x+'px';
+        square.style.marginTop = position.y+'px';
     });
 });
 // récupère l'id du bouton envoyer message
@@ -21,6 +25,7 @@ document.addEventListener('keydown',function (event) {
        marginLeft +=10;
    }
    square.style.marginLeft=marginLeft +'px';
+   socket.emit('square-move',{x:marginLeft,y:0});
 });
 
 formNewMessage.addEventListener('submit',function (event) {
