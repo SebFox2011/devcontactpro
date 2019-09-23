@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 // création d'une nouvelle collection
 const messageSchema = new mongoose.Schema ({
-    user: mongoose.Schema.Types.ObjectID,
+    user: {type:mongoose.Schema.Types.ObjectID, ref:'Users'}, //permet de joindre a message, Users id
     content: String,
     createdAt: Date
 });

@@ -8,6 +8,20 @@ socket.on('connect',function () {
 // récupère l'id du bouton envoyer message
 var formNewMessage = document.getElementById('new-message');
 var listNewMessages = document.getElementById('list-messages');
+var square = document.getElementById('square');
+var marginLeft = 0;
+document.addEventListener('keydown',function (event) {
+   console.log(event);
+   if (event.code == 'ArrowLeft'){
+       if (marginLeft >0)
+            marginLeft -=10;
+
+   }
+   else if(event.code == 'ArrowRight') {
+       marginLeft +=10;
+   }
+   square.style.marginLeft=marginLeft +'px';
+});
 
 formNewMessage.addEventListener('submit',function (event) {
     event.preventDefault(); // annule l'action de redirection
@@ -34,6 +48,17 @@ formNewMessage.addEventListener('submit',function (event) {
 
 function addMessage(message) {
     var li = document.createElement('li');
-    li.innerText = message.content;
+    var spanUsername = document.createElement('span');
+    var spanMessage = document.createElement('span');
+
+    spanUsername.innerText = message.user.username;
+    spanMessage.innerText = message.content;
+
+    spanUsername.className = 'username';
+    spanMessage.className = 'message';
+
+    li.appendChild(spanUsername);
+    li.appendChild(spanMessage);
+
     listNewMessages.appendChild(li);
 }

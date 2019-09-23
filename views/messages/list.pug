@@ -4,10 +4,18 @@ block content
     if messages
         ul#list-messages
             each message in messages
-                li=message.content
+                li
+                    if message.user
+                        span.username=message.user.username + ' : '
+                    span.message=message.content
     else
         p pas de messages
 
     form#new-message(action='messages' method='POST')
         textarea(name='content' placeholder='Mon message')
         input(type='submit')
+    #square
+
+block javascripts
+    script(src='/javascripts/socket.io.js')
+    script(src='/javascripts/script.js')
