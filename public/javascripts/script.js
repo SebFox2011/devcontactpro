@@ -1,4 +1,4 @@
-var socket = io('http://location.hostname:8000');
+var socket = io(location.hostname+':8000');
 socket.on('connect',function () {
     console.log('Connected');
     socket.on('new-message',function (message) { // lorsque le message arrive
